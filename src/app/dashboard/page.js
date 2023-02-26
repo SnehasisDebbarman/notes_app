@@ -17,16 +17,20 @@ export default function Page() {
 
   //localstorage value
   const [token, settoken] = useState(
-    JSON.parse(localStorage.getItem("id_token"))
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("id_token"))
+      : ""
   );
-  const [user, setuser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [user, setuser] = useState(
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user"))
+      : ""
+  );
 
   const [postTitle, setPostTitle] = useState("");
   const [Content, setContent] = useState("");
 
   useEffect(() => {
-    settoken(JSON.parse(localStorage.getItem("id_token")));
-    setuser(JSON.parse(localStorage.getItem("user")));
     setLoading(true);
     getPosts();
   }, []);

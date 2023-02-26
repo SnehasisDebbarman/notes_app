@@ -1,11 +1,7 @@
 "use client";
-
 import { useState } from "react";
 
-import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "./page.module.css";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -40,9 +36,10 @@ export default function Page() {
             throw new Error(response);
           }
           setIdToekn(response.token);
-
-          localStorage.setItem("id_token", JSON.stringify(response.token));
-          localStorage.setItem("user", JSON.stringify(response.user));
+          if (typeof window !== "undefined") {
+            localStorage.setItem("id_token", JSON.stringify(response.token));
+            localStorage.setItem("user", JSON.stringify(response.user));
+          }
 
           router.push("/dashboard");
         })
